@@ -380,10 +380,11 @@
             box-shadow: 0 0 0 4px var(--white), 0 0 0 7px var(--primary-rose);
         }
 
-        /* Mobile Timeline Line */
+        /* Enhanced Mobile Timeline Line */
         .timeline-line-mobile {
             position: absolute;
-            left: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
             width: 3px;
             height: calc(100% - 4rem);
             background: linear-gradient(to bottom, 
@@ -435,7 +436,9 @@
 
         .polaroid-container {
             position: relative;
-            max-width: clamp(280px, 50vw, 350px);
+            /* Fixed consistent sizing for all polaroids */
+            width: clamp(300px, 50vw, 380px);
+            max-width: 380px;
             margin: 0 clamp(2rem, 5vw, 3rem);
             perspective: 1000px;
         }
@@ -452,6 +455,8 @@
             overflow: hidden;
             border: 1px solid rgba(225, 29, 72, 0.05);
             will-change: transform;
+            /* Ensure consistent width */
+            width: 100%;
         }
 
         .polaroid.right-side {
@@ -581,7 +586,8 @@
 
         .polaroid-image {
             width: 100%;
-            height: clamp(200px, 40vw, 250px);
+            /* Fixed consistent height for all images */
+            height: 250px;
             object-fit: cover;
             border-radius: 8px;
             background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
@@ -740,7 +746,7 @@
             animation-delay: 0.6s;
         }
 
-        /* Mobile Responsive */
+        /* Enhanced Mobile Responsive - More Impressive Design */
         @media (max-width: 768px) {
             .timeline-line {
                 display: none;
@@ -751,24 +757,65 @@
             }
 
             .timeline-event {
-                justify-content: flex-start !important;
+                /* Enhanced mobile layout - alternating sides for visual interest */
                 margin-bottom: clamp(3rem, 6vw, 4rem);
             }
 
+            .timeline-event:nth-child(odd) {
+                justify-content: flex-start !important;
+            }
+
+            .timeline-event:nth-child(even) {
+                justify-content: flex-end !important;
+            }
+
             .polaroid-container {
-                margin: 0 0 0 clamp(1.5rem, 4vw, 2rem);
-                max-width: clamp(260px, 80vw, 320px);
+                /* Enhanced mobile sizing */
+                width: clamp(280px, 75vw, 340px);
+                max-width: 340px;
+                margin: 0;
+            }
+
+            .timeline-event:nth-child(odd) .polaroid-container {
+                margin-left: clamp(1.5rem, 4vw, 2rem);
+                margin-right: 0;
+            }
+
+            .timeline-event:nth-child(even) .polaroid-container {
+                margin-right: clamp(1.5rem, 4vw, 2rem);
+                margin-left: 0;
+            }
+
+            .timeline-event:nth-child(odd) .connection-line {
+                left: clamp(-2rem, -4vw, -2.5rem) !important;
+                background: linear-gradient(to left, var(--primary-rose), rgba(225, 29, 72, 0.3)) !important;
+            }
+
+            .timeline-event:nth-child(even) .connection-line {
+                right: clamp(-2rem, -4vw, -2.5rem) !important;
+                background: linear-gradient(to right, var(--primary-rose), rgba(225, 29, 72, 0.3)) !important;
+            }
+
+            .timeline-event:nth-child(even) .polaroid {
+                transform: rotate(1deg);
+            }
+
+            .timeline-event:nth-child(even) .polaroid:hover,
+            .timeline-event:nth-child(even) .polaroid:focus-within {
+                transform: rotate(0deg) scale(1.02);
             }
 
             .connection-line {
                 width: clamp(2rem, 4vw, 2.5rem);
-                left: clamp(-2rem, -4vw, -2.5rem) !important;
-                background: linear-gradient(to left, var(--primary-rose), rgba(225, 29, 72, 0.3)) !important;
             }
 
             .polaroid {
                 padding: clamp(0.8rem, 2.5vw, 1.2rem);
                 padding-bottom: clamp(2rem, 5vw, 3rem);
+            }
+
+            .polaroid-image {
+                height: clamp(220px, 45vw, 280px);
             }
 
             .push-pin {
@@ -802,17 +849,32 @@
         /* Extra small mobile devices */
         @media (max-width: 480px) {
             .polaroid-container {
-                max-width: clamp(240px, 85vw, 280px);
+                width: clamp(260px, 85vw, 300px);
+                max-width: 300px;
+            }
+
+            .timeline-event:nth-child(odd) .polaroid-container {
                 margin-left: clamp(1rem, 3vw, 1.5rem);
             }
 
-            .timeline-line-mobile {
-                left: 2.5rem;
+            .timeline-event:nth-child(even) .polaroid-container {
+                margin-right: clamp(1rem, 3vw, 1.5rem);
+            }
+
+            .timeline-event:nth-child(odd) .connection-line {
+                left: clamp(-1.5rem, -3vw, -2rem) !important;
+            }
+
+            .timeline-event:nth-child(even) .connection-line {
+                right: clamp(-1.5rem, -3vw, -2rem) !important;
             }
 
             .connection-line {
-                left: clamp(-1.5rem, -3vw, -2rem) !important;
                 width: clamp(1.5rem, 3vw, 2rem);
+            }
+
+            .polaroid-image {
+                height: clamp(200px, 40vw, 240px);
             }
 
             .main-title {
